@@ -9,10 +9,14 @@ app.use((req, res, next) => {
   next();
 });
 
-const startServer = async _ => {
-
+const createDB = async _ => {
   const database = require("./src/database");
   let db = await database.setup();
+  return db
+}
+
+const startServer = async _ => {
+  let db = await createDB();
 
   const routes = require('./src/routes');
   routes.register(app, db);
@@ -30,6 +34,8 @@ const startServer = async _ => {
   return server;
 }
 
+
+
 //module.exports.app = app;
 //startServer()
-module.exports = { app, server: startServer() };
+module.exports = { app, server: startServer(), db: createDB() };

@@ -1,17 +1,37 @@
-const { app, server } = require('../app');
+const { app, server, db } = require('../app');
 const request = require('supertest');
-//const db = new sqlite3.Database(':memory:');
 // const database = require("./src/database");
 // let db = await database.setup();
 
-beforeAll(async () => {
-    process.env.NODE_ENV = 'test';
-    await server;
+// beforeAll(async () => {
+//     process.env.NODE_ENV = 'test';
+//     await server;
+// })
+
+beforeAll(() => {
+    console.log('--------------> Before All');
 })
 
+
+beforeEach(() => {
+    console.log('--------------> Before Each');
+})
+
+
+afterAll(() => {
+    console.log('--------------> After All');
+})
+
+
+afterEach(() => {
+    console.log('--------------> After Each');
+})
+
+
 // const seedDb = db => {
-//     db.run('CREATE TABLE IF NOT EXISTS persons (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)');
-//     db.run('DELETE FROM persons');
+//     //db.run('CREATE TABLE IF NOT EXISTS persons (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)');
+//     //db.run('DELETE FROM persons');
+//     db.run('DELETE FROM rest_emp where id = 3');
 // }
 
 describe('Simple samples', () => {
@@ -27,9 +47,8 @@ describe('Simple samples', () => {
 
 describe('Employee endpoint', () => {
     test("should return get result when employee exist", () => {
-        // db.serialize(async () => {
-        // seedDb(db);
-        // const got = await request(app).get('/api/emp');
+
+        //seedDb(db);
 
         const want = [
             { id: 1, name: "Joe", email: "joedoe@test.ca", phone: "243234345676", address: "43 Street SW" }
@@ -43,33 +62,17 @@ describe('Employee endpoint', () => {
     })
 
     test("should create a new employee on valid post requests", () => {
-        // db.serialize(async () => {
         // seedDb(db);
-        // const got = await request(app).get('/api/emp');
-
-        const toAdd = { "name": "SUPERTEST_USER", "email": "joedoe@test.ca", "phone": "243234345676", "address": "43 Street SW" }
+        const toAdd = { "name": "Super Test", "email": "user@test.ca", "phone": "243234345676", "address": "43 Street SW" }
 
         return request(app).post('/api/emp/').send(toAdd).then(
             (got) => {
-                expect(got.status).toBe(201);
-                //expect(got.body).toEqual('Employee added successfully!');
+                expect(got.status).toBe(200);
+                expect(got.body).toEqual({ "result": "Employee added successfully!" });
             }
         )
-    })
+    }, 1)
 });
 
 // afterAll(async (done) => {
-//     // console.log("====================>1");
-//     // let srv = await server;
-//     // console.log("====================>2");
-//     // let close = await srv.close(done);
-//     // console.log("====================>3");
-//     // done();
-//     // console.log("====================>4");
-//     // app.delete(done);
-//     // console.log("====================>5");
-//     // app.delete(done);
-//     // console.log("====================>6");
-//     //await (await server).close(done);
-
 // })
