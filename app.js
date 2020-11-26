@@ -30,4 +30,6 @@ const startServer = async _ => {
   return server;
 }
 
-startServer()
+//module.exports.app = app;
+//startServer()
+module.exports = { app, server: startServer() };

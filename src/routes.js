@@ -39,16 +39,17 @@ module.exports.register = (app, database) => {
     });
 
     app.post('/api/emp', async (req, res) => {
+        console.log('>>>>>>>>>>>>>>', req.body);
         let _name = req.body.name;
         let _phone = req.body.phone;
         let _email = req.body.email;
         let _address = req.body.address;
-
+        console.log('>>>>>>>>>>>>>>', _name, ",", _phone, ",", _email, ",", _address);
         const query = database.query(
             'insert into rest_emp(name, phone, email, address) values (?, ?, ?, ?)',
             [_name, _phone, _email, _address]
         );
         const emps = await query;
-        res.status(200).send('Employee added successfully!').end();
+        res.status(200).send(JSON.stringify({ 'result': 'Employee added successfully!' })).end();
     });
 };
