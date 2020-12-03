@@ -2,5 +2,6 @@
 .DS_Store
 .env
 node_modules
+coverage/
 cloud_sql_proxy
 *.code-workspace
