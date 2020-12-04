@@ -35,7 +35,4 @@ const startServer = async _ => {
 }
 
 
-
-//module.exports.app = app;
-//startServer()
 module.exports = { app, server: startServer(), db: createDB() };
