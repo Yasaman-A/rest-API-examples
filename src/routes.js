@@ -43,12 +43,24 @@ module.exports.register = (app, database) => {
         let _phone = req.body.phone;
         let _email = req.body.email;
         let _address = req.body.address;
+        let _status = "";
 
-        const query = database.query(
-            'insert into rest_emp(name, phone, email, address) values (?, ?, ?, ?)',
-            [_name, _phone, _email, _address]
-        );
-        const emps = await query;
-        res.status(200).send('Employee added successfully!').end();
+        if ((typeof _name === 'undefined') || (typeof _phone === 'undefined') || (typeof _email === 'undefined') || (typeof _address === 'undefined')) {
+            _status = "Unsuccess";
+
+        } else {
+            const query = database.query(
+                'insert into rest_emp(name, phone, email, address) values (?, ?, ?, ?)',
+                [_name, _phone, _email, _address]
+            );
+            const emps = await query;
+            _status = "Success";
+
+        }
+
+        let messsage = '{"status":"' + _status + '", "data":{"_name":"' + _name + '","_phone":"' + _phone + '","_email":"' + _email + '", "_address":"' + _address + '"}}';
+        const obj_messsage = JSON.parse(messsage);
+        res.status(200).send((obj_messsage)).end();
+
     });
 };
