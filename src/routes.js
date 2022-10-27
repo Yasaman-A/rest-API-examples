@@ -6,7 +6,7 @@ module.exports.register = (app, database) => {
         res.status(200).send("You did it! I am now running:) ").end();
     });
 
-    app.get('/api/emp', async (req, res) => {
+    app.get('/api/employee', async (req, res) => {
         console.log("=================");
         let query;
         if (req.query.name) {
@@ -28,7 +28,7 @@ module.exports.register = (app, database) => {
 
 
 
-    app.get('/api/emp/:id', async (req, res) => {
+    app.get('/api/employee/:id', async (req, res) => {
         let _id = req.params.id;
         const query = database.query(
             'select * from rest_emp where id = ?',
@@ -38,7 +38,7 @@ module.exports.register = (app, database) => {
         res.status(200).send(JSON.stringify(emps)).end();
     });
 
-    app.post('/api/emp', async (req, res) => {
+    app.post('/api/employee', async (req, res) => {
         let _name = req.body.name;
         let _phone = req.body.phone;
         let _email = req.body.email;
