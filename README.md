@@ -22,5 +22,5 @@ BaseURL: https://comp-3504-demo.appspot.com/
 | ------------- |:-------------:| -----:| -----:|
 | GET  | api/employees |  | Find the list of all employees|
 | GET  | api/employees | name | Find the list of employees with the given name, e.g., api/emp?name="John"|
-| GET  | api/employees/:id | id | Search employee by id, e.g., api/emp/1|
+| GET  | api/employees/:id |  | Search employee by id, e.g., api/emp/1|
 | POST  | api/employees | name, email, phone, address  | Add a new employee|
